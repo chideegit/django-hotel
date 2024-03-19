@@ -23,24 +23,24 @@
     <div class="col-md-3">
         <div class="card h-100">
             <div class="card-header">
-                Featured
+                Pinned📌
             </div>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">All Available Rooms</h5>
+                <p class="card-text">Right now, there are <b>{{available_rooms}}</b> rooms that are available. Still room for more😊</p>
+                <a href="{% url 'all-available-rooms' %}" class="btn btn-primary">Check Out</a>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card h-100">
             <div class="card-header">
-                Featured
+                Pinned📌
             </div>
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">All Booked Rooms</h5>
+                <p class="card-text">We currently have <b>{{booked_rooms}}</b> rooms booked and occupied. Stay Informed🤖</p>
+                <a href="#" class="btn btn-primary">Check Out</a>
             </div>
         </div>
     </div>

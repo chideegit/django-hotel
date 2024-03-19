@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 
@@ -12,20 +13,30 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for room in rooms %}
-    <div class="col">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title">{{room.name}}</h5>
-                <p class="card-text"><a href="#" class="btn btn-primary btn-sm w-100">Book Room</a></p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">NGN {{room.category.price}}</small>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Category</th>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Book</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                <tr>
+                    <td>{{room.category}}</td>
+                    <td>{{room.name}}</td>
+                    <td> NGN {{room.category.price|intcomma}}</td>
+                    <td><a href="" class="btn btn-outline-primary btn-sm">Book Room</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    {% endfor %}
 </div>
 
 {% endblock content %}

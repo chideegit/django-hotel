@@ -42,7 +42,8 @@ def update_category(request, pk):
     return render(request, 'room/update_category.html', context)
 
 def add_room(request):
-    rooms = Room.objects.filter(user=request.user)
+    available_rooms = Room.objects.filter(user=request.user, is_available=True).count()
+    booked_rooms = Room.objects.filter(user=request.user, is_available=False).count()
     if request.method == 'POST':
         form = AddRoomForm(request.POST)
         if form.is_valid():
@@ -56,7 +57,7 @@ def add_room(request):
             return redirect('add-room')
     else:
         form = AddRoomForm()
-        context = {'form':form, 'rooms':rooms}
+        context = {'form':form, 'available_rooms':available_rooms, 'booked_rooms':booked_rooms}
     return render(request, 'room/add_room.html', context)
 
 def update_room(request, pk):
