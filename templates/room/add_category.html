@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                {% render_field form.name class="form-control" %}
+                <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                {% render_field form.price class="form-control" %}
+                <label for="floatingInput">Price</label>
+            </div>
+        
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border rounded-3 bg-light h-100">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Rooms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td>{{category.name}}</td>
+                            <td><small>NGN</small> {{category.price|intcomma}}</td>
+                            <td>{{category.room_set.all.count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
