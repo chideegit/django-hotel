@@ -84,7 +84,7 @@ def book_room(request, pk):
         if form.is_valid():
             var = form.save(commit=False)
             var.user = request.user
-            var.room = room.pk
+            var.room = room
             var.save()
             room.is_available= False
             room.save()
@@ -95,7 +95,7 @@ def book_room(request, pk):
             return redirect(reverse('book-room', args=[room.pk]))
     else:
         form = AddBookRoomForm()
-        form.fields['room'].queryset = Room.objects.filter(is_available=True)
+        #form.fields['room'].queryset = Room.objects.filter(is_available=True)
         context = {'form':form}
     return render(request, 'room/book_room.html', context)
 
@@ -134,3 +134,14 @@ def check_out_guest(request, pk):
     room.save()
     messages.success(request, 'Guest is now checked out and room is ready again')
     return redirect('dashboard')
+
+def all_rooms(request):
+    rooms = Room.objects.filter(user=request.user)
+    context = {'rooms':rooms}
+    return render(request, 'room/all_rooms.html', context)
+
+def guest_history_per_room(request, pk):
+    room = Room.objects.get(pk=pk)
+    guests = room.bookroom_set.filter(user=request.user)
+    context = {'room':room, 'guests':guests}
+    return render(request, 'room/guest_history_per_room.html', context)

@@ -10,5 +10,7 @@ urlpatterns = [
     path('update-booked-room/<int:pk>/', update_booked_room, name='update-booked-room'), 
     path('all-booked-rooms/', all_booked_rooms, name='all-booked-rooms'), 
     path('all-available-rooms/', all_available_rooms, name='all-available-rooms'), 
-    path('check-out-guest/<int:pk>/', check_out_guest, name='check-out-guest')
+    path('check-out-guest/<int:pk>/', check_out_guest, name='check-out-guest'), 
+    path('all-rooms/', all_rooms, name='all-rooms'), 
+    path('guest-history-per-room/<int:pk>/', guest_history_per_room, name='guest-history-per-room')
 ]
