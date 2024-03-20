@@ -3,9 +3,12 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django_project.decorators import check_for_hotel
 from .form import * 
 from .models import * 
 
+@login_required
+@check_for_hotel
 def add_category(request):
     categories = Category.objects.filter(user=request.user)
     if request.method == 'POST':
@@ -24,6 +27,8 @@ def add_category(request):
         context = {'form':form, 'categories':categories}
     return render(request, 'room/add_category.html', context)
 
+@login_required
+@check_for_hotel
 def update_category(request, pk):
     category = Category.objects.get(pk=pk)
     categories = Category.objects.filter(user=request.user)
@@ -41,6 +46,8 @@ def update_category(request, pk):
         context = {'form':form, 'categories':categories}
     return render(request, 'room/update_category.html', context)
 
+@login_required
+@check_for_hotel
 def add_room(request):
     available_rooms = Room.objects.filter(user=request.user, is_available=True).count()
     booked_rooms = Room.objects.filter(user=request.user, is_available=False).count()
@@ -60,6 +67,8 @@ def add_room(request):
         context = {'form':form, 'available_rooms':available_rooms, 'booked_rooms':booked_rooms}
     return render(request, 'room/add_room.html', context)
 
+@login_required
+@check_for_hotel
 def update_room(request, pk):
     rooms = Room.objects.filter(user=request.user)
     room = Room.objects.get(pk=pk)
@@ -77,6 +86,8 @@ def update_room(request, pk):
         context = {'form':form, 'rooms':rooms}
     return render(request, 'room/update_room.html', context)
 
+@login_required
+@check_for_hotel
 def book_room(request, pk):
     room = Room.objects.get(pk=pk)
     if request.method == 'POST':
@@ -99,6 +110,8 @@ def book_room(request, pk):
         context = {'form':form}
     return render(request, 'room/book_room.html', context)
 
+@login_required
+@check_for_hotel
 def update_booked_room(request, pk):
     room = BookRoom.objects.get(pk=pk)
     if request.method == 'POST':
@@ -115,16 +128,22 @@ def update_booked_room(request, pk):
         context = {'form':form}
     return render(request, 'room/update_booked_room.html', context)
 
+@login_required
+@check_for_hotel
 def all_booked_rooms(request):
     rooms = Room.objects.filter(user=request.user, is_available=False)
     context = {'rooms':rooms}
     return render(request, 'room/all_booked_rooms.html', context)
 
+@login_required
+@check_for_hotel
 def all_available_rooms(request):
     rooms = Room.objects.filter(user=request.user, is_available=True)
     context = {'rooms':rooms}
     return render(request, 'room/all_available_rooms.html', context)
 
+@login_required
+@check_for_hotel
 def check_out_guest(request, pk):
     booked_room = BookRoom.objects.get(pk=pk)
     booked_room.has_checked_out = True
@@ -135,11 +154,15 @@ def check_out_guest(request, pk):
     messages.success(request, 'Guest is now checked out and room is ready again')
     return redirect('dashboard')
 
+@login_required
+@check_for_hotel
 def all_rooms(request):
     rooms = Room.objects.filter(user=request.user)
     context = {'rooms':rooms}
     return render(request, 'room/all_rooms.html', context)
 
+@login_required
+@check_for_hotel
 def guest_history_per_room(request, pk):
     room = Room.objects.get(pk=pk)
     guests = room.bookroom_set.filter(user=request.user)

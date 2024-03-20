@@ -6,9 +6,9 @@
     <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">{{hotel.name}}</h1>
         <p class="col-md-8 fs-4">
-            {{hotel.address}} | {{hotel.email}} | {{hotel.phone_number}}
+            🏠{{hotel.address}}  📩{{hotel.email}}  📞{{hotel.phone_number}}
         </p>
-        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+        <a href="{% url 'update-hotel' %}" class="btn btn-primary btn-lg" type="button">Update Info</a>
     </div>
 </div>
 

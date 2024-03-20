@@ -3,22 +3,33 @@
 
 {% block content %}
 
-<form class="p-4 p-md-5 border rounded-3 bg-light">
+<form class="p-4 p-md-5 border rounded-3 bg-light" method="POST">
+    {% csrf_token %}
     <div class="form-floating mb-3">
         {% render_field form.name class="form-control" %}
         <label for="floatingInput">Hotel Name</label>
     </div>
-    <div class="form-floating mb-3">
-        {% render_field form.address class="form-control" %}
-        <label for="floatingInput">Address</label>
-    </div>
-    <div class="form-floating mb-3">
-        {% render_field form.email class="form-control" %}
-        <label for="floatingInput">Email ID</label>
-    </div>
-    <div class="form-floating mb-3">
-        {% render_field form.phone_number class="form-control" %}
-        <label for="floatingInput">Phone Number</label>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-floating mb-3">
+                {% render_field form.address class="form-control" %}
+                <label for="floatingInput">Address</label>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-floating mb-3">
+                {% render_field form.email class="form-control" %}
+                <label for="floatingInput">Email ID</label>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-floating mb-3">
+                {% render_field form.phone_number class="form-control" %}
+                <label for="floatingInput">Phone Number</label>
+            </div>
+        </div>
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>

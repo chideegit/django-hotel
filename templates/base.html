@@ -43,6 +43,20 @@
                             <li><a class="dropdown-item" href="{% url 'all-rooms' %}">Manage Rooms</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Hotel
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if not request.user.has_hotel %}
+                            <li><a class="dropdown-item" href="{% url 'add-hotel' %}">Add Hotel</a></li>
+                            {% else %}
+                            <li><a class="dropdown-item" href="{% url 'update-hotel' %}">Update Hotel Info</a></li>
+                            <li><a class="dropdown-item" href="{% url 'hotel-details' %}">Hotel Details</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1"
                             aria-disabled="true">{{request.user.first_name}}</a>
@@ -58,6 +72,13 @@
     </nav>
 
     <div class="container mt-5">
+        {% if not request.user.has_hotel %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            You're seeing this because you have not added your Hotel Info. Please do so now.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-{{message.tags}}" role="alert">
